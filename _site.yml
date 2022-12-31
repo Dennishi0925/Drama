@@ -8,4 +8,4 @@ navbar:
     - text: "About"
       href: about.html
     - text: "Ranking"
-      href: about.html
+      href: ranking.html
