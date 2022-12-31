@@ -2,7 +2,7 @@
 title: "About This Website"
 ---
 
-這是 Netflix Ranking 測試
+這是 Netflix Ranking 測試...
 
 ```{r echo=FALSE,message=F}
 library(readr)
@@ -18,12 +18,13 @@ df_netflix %>% select(rank, showName) %>% head(10) %>%
   )
 ```
 
-看一下動態圖
+看一下動態圖...
 
 ```{r echo=FALSE,message=F}
 library(ggplot2)
 library(ggiraph)
 library(cowplot)
+
 mtcars <- mtcars
 mtcars$tooltip <- rownames(mtcars)
 
@@ -36,7 +37,7 @@ gg2 <- ggplot(mtcars) +
 girafe( ggobj = plot_grid(gg1, gg2), width_svg = 8, height_svg = 4)
 ```
 
-看一下新的動態圖
+看一下新的動態圖...
 
 ```{r echo=FALSE,message=F}
 library(data.table)
