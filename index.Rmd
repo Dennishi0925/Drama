@@ -1,9 +1,11 @@
 ---
 title: "My Website"
+output: 
+  html_document:
+    includes:
+       in_header: GA_Script.html
 ---
 
-<head>
-<meta name="google-site-verification" content="PQDMEgxBcLOiHXGVaLnd_Dv1Ifl3cRu_ca5byOcMUz0" />
-</head> 
+
 
 Hello, Website!
