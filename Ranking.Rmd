@@ -1,0 +1,68 @@
+---
+title: "About This Website"
+---
+
+這是 Netflix Ranking 測試
+
+```{r echo=FALSE,message=F}
+library(readr)
+library(purrr)
+library(dplyr)
+library(gt)
+df_netflix <- read_csv("data/Netflix/20221218.csv")
+df_netflix %>% select(rank, showName) %>% head(10) %>%
+  gt() %>%
+  tab_header(
+    title = md("**Netflix** Ranking - 2022"),
+    subtitle = "These are some fine automobiles"
+  )
+```
+
+看一下動態圖
+
+```{r echo=FALSE,message=F}
+library(ggplot2)
+library(ggiraph)
+library(cowplot)
+mtcars <- mtcars
+mtcars$tooltip <- rownames(mtcars)
+
+gg1 <- ggplot(mtcars) +
+  geom_point_interactive(aes(x = drat, y = wt, color = qsec, 
+    tooltip = tooltip, data_id = tooltip ), size = 4) 
+gg2 <- ggplot(mtcars) +
+  geom_point_interactive(aes(x = qsec, y = disp, color = mpg, 
+    tooltip = tooltip, data_id = tooltip ), size = 4)
+girafe( ggobj = plot_grid(gg1, gg2), width_svg = 8, height_svg = 4)
+```
+
+看一下新的動態圖
+
+```{r echo=FALSE,message=F}
+library(data.table)
+library(charlatan)
+
+species <- ch_taxonomic_species(n = 10)
+dat <- lapply(species, function(species, n){
+  data.table(
+    date = as.Date(seq_len(n), origin = "2018-10-25"),
+    sales = cumsum(runif(n, -1, 1)),
+    species = species,
+    name = ch_name(n = n)
+  )
+}, n = 200)
+dat <- rbindlist(dat)
+
+gg <- ggplot(dat, aes(x = date, y = sales, 
+                      colour = species, group = species)) +
+  geom_line_interactive(aes(tooltip = name, data_id = species)) +
+  scale_color_viridis_d() + 
+  labs(title = "move mouse over lines")
+
+x <- girafe(ggobj = gg, width_svg = 8, height_svg = 6,
+  options = list(
+    opts_hover_inv(css = "opacity:0.1;"),
+    opts_hover(css = "stroke-width:2;")
+  ))
+x
+```
